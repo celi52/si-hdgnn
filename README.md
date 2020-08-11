@@ -19,6 +19,9 @@ conda install pytorch==1.0.1 torchvision==0.2.2 cudatoolkit=10.0 -c pytorch
 
 See [README](./codes/README.md) in `./codes/`.
 
+## Todos
+
+I plan to optimize the code in the near future, sorry for the inconvenience that recent codes are hard to read or lack of annotations.
 
 ## Cite
 
