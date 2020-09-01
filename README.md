@@ -2,9 +2,9 @@
 
 This repo provides a reference implementation of **HDGNN** as described in the paper:
 
->  Quantifying the Scientific Impact via Heterogeneous Dynamical Graph Neural Network.  
->  [Xovee Xu](xovee.cn), Fan Zhou, Ce Li, Goce Trajcevski, Ting Zhong and Guanyu Zhu.  
->  Submitted to GLOBECOM 2020 SAC BD, under review
+>  Quantifying the Scientific Impact via Heterogeneous Dynamical Graph Neural Network  
+>  [Xovee Xu](https://xovee.cn), Fan Zhou, Ce Li, Goce Trajcevski, Ting Zhong and Guanyu Zhu  
+>  Submitted for review  
 
 ## Requirements
 The code was tested with `Python 3.7`, `tensorflow-gpu 2.0.0`, `torch 1.0.1` and `Cuda 10.0`. Install the dependencies via Anaconda: 
