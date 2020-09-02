@@ -7,12 +7,17 @@ This repo provides a reference implementation of **HDGNN** as described in the p
 >  Submitted for review  
 
 ## Requirements
-The code was tested with `Python 3.7`, `tensorflow-gpu 2.0.0`, `torch 1.0.1` and `Cuda 10.0`. Install the dependencies via Anaconda: 
+The code was tested with `Python 3.7`, `tensorflow-gpu 2.0.1`, `torch 1.0.1` and `Cuda 10.0`. Install the dependencies via Anaconda: 
 
-```shell script
+```shell
+# create conda virtual environment
+conda create --name hdgnn python=3.7 cudatoolkit=10.0 cudnn=7.6.5 pytorch=1.0.1 torchvision=0.2.2 -c pytorch
+
+# activate environment
+conda activate hdgnn
+
+# install other dependencies
 pip install -r requirements.txt
-
-conda install pytorch==1.0.1 torchvision==0.2.2 cudatoolkit=10.0 -c pytorch
 ```
 
 ## Run the codes

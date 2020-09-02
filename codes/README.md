@@ -14,9 +14,12 @@ This stage may costs a large amount of RAM (~64GB with millions of nodes/edges i
 
 ### Run scripts:
 
-```shell script
-> python graph_sample.py
-> python rwr.py
+```shell
+# build a heterogeneous graph
+python graph_sample.py
+
+# heterogeneous neighboring node sampling
+python rwr.py
 ```
 
 ## Generate node embeddings
