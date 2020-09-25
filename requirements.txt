@@ -1,2 +1,2 @@
-tensorflow-gpu==2.0.1
+tensorflow-gpu==2.0.3
 networkx==2.4
