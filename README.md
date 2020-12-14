@@ -1,9 +1,9 @@
-# HDGNN: Quantifying the Scientific Impact via Heterogeneous Dynamical Graph Neural Network
+# SI-HDGNN: Quantifying the Scientific Impact via Heterogeneous Dynamical Graph Neural Network
 
-This repo provides a reference implementation of **HDGNN** as described in the paper:
+This repo provides a reference implementation of **SI-HDGNN** as described in the paper:
 
 >  Quantifying the Scientific Impact via Heterogeneous Dynamical Graph Neural Network  
->  [Xovee Xu](https://xovee.cn), Fan Zhou, Ce Li, Goce Trajcevski, Ting Zhong and Guanyu Zhu  
+>  [Xovee Xu](https://xovee.cn), Fan Zhou, Ce Li, Goce Trajcevski, Ting Zhong, and Kunpeng Zhang 
 >  Submitted for review  
 
 ## Requirements
@@ -30,11 +30,11 @@ I plan to optimize the code in the near future, sorry for the inconvenience that
 
 ## Cite
 
-If you find **HDGNN** useful for your research, please consider citing us 😘:
+If you find **SI-HDGNN** useful for your research, please consider citing us 😘:
 
     @inproceedings{xovee2020quantifying, 
-      author = {Xovee Xu and Fan Zhou and Ce Li and Goce Trajcevski and Ting Zhong and Guanyu Zhu}, 
-      title = {Quantifying the Scientific Impact via Heterogeneous Dynamical Graph Neural Network}, 
+      author = {Xovee Xu and Fan Zhou and Ce Li and Goce Trajcevski and Ting Zhong and Kunpeng Zhang}, 
+      title = {A Heterogeneous Dynamical Graph Neural Networks Approach to Quantify Scientific Impact}, 
       booktitle = {arXiv:2003.12042}, 
       year = {2020}, 
     }
