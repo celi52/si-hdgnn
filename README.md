@@ -31,20 +31,26 @@ I plan to optimize the code in the near future, sorry for the inconvenience that
 ## Cite
 
 If you find **SI-HDGNN** useful for your research, please consider citing us 😘:
+```bibtex
+@inproceedings{xovee2020quantifying, 
+  author = {Xovee Xu and Fan Zhou and Ce Li and Goce Trajcevski and Ting Zhong and Kunpeng Zhang}, 
+  title = {A Heterogeneous Dynamical Graph Neural Networks Approach to Quantify Scientific Impact}, 
+  booktitle = {arXiv:2003.12042}, 
+  year = {2020}, 
+}
+```
 
-    @inproceedings{xovee2020quantifying, 
-      author = {Xovee Xu and Fan Zhou and Ce Li and Goce Trajcevski and Ting Zhong and Kunpeng Zhang}, 
-      title = {A Heterogeneous Dynamical Graph Neural Networks Approach to Quantify Scientific Impact}, 
-      booktitle = {arXiv:2003.12042}, 
-      year = {2020}, 
-    }
-      
+We also have a [survey paper](https://dl.acm.org/doi/10.1145/3433000) you might be interested:
 
-We also have a [survey paper](https://arxiv.org/abs/2005.11041) you might be interested:
-
-    @article{zhou2020survey,
-      author = {Fan Zhou and Xovee Xu and Goce Trajcevski and Kunpeng Zhang}, 
-      title = {A Survey of Information Cascade Analysis: Models, Predictions and Recent Advances}, 
-      journal = {ACM Computing Surveys (CSUR)}, 
-      year = {2020},
-    }
+```bibtex
+@article{zhou2021survey,
+  author = {Fan Zhou and Xovee Xu and Goce Trajcevski and Kunpeng Zhang}, 
+  title = {A Survey of Information Cascade Analysis: Models, Predictions, and Recent Advances}, 
+  journal = {ACM Computing Surveys (CSUR)}, 
+  volume = {54},
+  number = {2},
+  year = {2021},
+  pages = {1--36},
+  doi = {10.1145/3433000},
+}
+```
