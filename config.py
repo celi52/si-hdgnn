@@ -1,9 +1,7 @@
 """
-Paper  : Quantifying the Scientific Impact via Heterogeneous Dynamical Graph Neural Network
-Model  : HDGNN
+Model  : SI-HDGNN
 Author : Xovee Xu
-Date   : Year 2020
-Venue  : Submitted to GLOBECOM 2020 SAC BD
+Date   : Year 2021
 """
 
 
