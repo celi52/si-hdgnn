@@ -1,6 +1,6 @@
 # SI-HDGNN: Heterogeneous Dynamical Academic Network for Scientific Impact Propagation Learning
 
-This repo provides a reference implementation of **SI-HDGNN** for review in IJIS
+This repo provides a reference implementation of **SI-HDGNN**.
 
 [comment]: <> (>  Quantifying the Scientific Impact via Heterogeneous Dynamical Graph Neural Network  )
 
