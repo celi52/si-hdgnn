@@ -1,4 +1,4 @@
-# SI-HDGNN: Heterogeneous Dynamical Academic Network for Scientific Impact Propagation Learning
+# SI-HDGNN: Heterogeneous Dynamical Academic Network for Learning Scientific Impact Propagation
 
 This repo provides a reference implementation of **SI-HDGNN**.
 
@@ -24,10 +24,11 @@ pip install -r requirements.txt
 
 ## Datasets
 
-Dataset can be downloaded in [Google Drive](https://drive.google.com/drive/folders/1JPXdSi23VS1lt0O_clxzNvaHgRl9iaIY?usp=sharing).
+APS and its preprocessd data can be downloaded in [Google Drive](https://drive.google.com/drive/folders/1JPXdSi23VS1lt0O_clxzNvaHgRl9iaIY?usp=sharing).
 
 You can access the original APS dataset [here](https://journals.aps.org/datasets). (Released by *American Physical Society*, obtained at Jan 17, 2019)
 
+Or DBLP-Citation-network V10, and ACM-Citation-network V9 [here](https://www.aminer.org/citation). (Released by *Aminer*)
 
 
 # Run the code
@@ -41,7 +42,7 @@ For a given scientific dataset, you should:
 
 ## Construct heterogeneous graph
 
-This stage may costs a large amount of RAM (~64GB with millions of nodes/edges in graph), delete some nodes/edges to save space.
+This stage may costs a large amount of RAM (~64GB with millions of nodes/edges in graph).
 
 ### Run scripts:
 
