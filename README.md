@@ -2,14 +2,12 @@
 
 This repo provides a reference implementation of **SI-HDGNN**.
 
-[comment]: <> (>  Quantifying the Scientific Impact via Heterogeneous Dynamical Graph Neural Network  )
-
-[comment]: <> (>  [Xovee Xu]&#40;https://xovee.cn&#41;, Fan Zhou, Ce Li, Goce Trajcevski, Ting Zhong, and Kunpeng Zhang )
-
-[comment]: <> (>  Submitted for review  )
+> Heterogeneous Dynamical Academic Network for Learning Scientific Impact Propagation  
+> [Xovee Xu](https://xovee.cn), Ting Zhong, Ce Li, Goce Trajcevski, and Fan Zhou  
+> Knowledge-Based Systems, 2021, Accepted
 
 ## Requirements
-The code was tested with `Python 3.7`, `tensorflow-gpu 2.4.0`, `torch 1.0.1` and `Cuda 11.0.221`. Install the dependencies via Anaconda: 
+The code was tested with `Python 3.7`, `tensorflow-gpu 2.4.0`, `torch 1.0.1` and `cuda 11.0`. Install the dependencies via Anaconda: 
 
 ```shell
 # create conda virtual environment
@@ -125,59 +123,19 @@ Here we only include the files related to the paper prediction, followed by the 
 
 You may change the model settings manually in `config.py` or directly into the codes. 
 
+## Cite
 
+If you find **SI-HDGNN** useful for your research, please consider citing us 😘 :)
+```bibtex
+@article{xu2021heterogeneous, 
+  title = {Heterogeneous Dynamical Academic Network for Learning Scientific Impact Propagation}, 
+  author = {Xovee Xu and Ting Zhong and Ce Li and Goce Trajcevski and Fan Zhou}, 
+  journal = {Knowledge-Based Systems}, 
+  year = {2021}, 
+  numpages = {20}, 
+}
+```
 
+## Contact
 
-[comment]: <> (## Run the codes)
-
-[comment]: <> (See [README]&#40;./codes/README.md&#41; in `./codes/`.)
-
-[comment]: <> (## Todos)
-
-[comment]: <> (I plan to optimize the code in the near future, sorry for the inconvenience that recent codes are hard to read or lack of annotations.)
-
-[comment]: <> (## Cite)
-
-[comment]: <> (If you find **SI-HDGNN** useful for your research, please consider citing us 😘:)
-
-[comment]: <> (```bibtex)
-
-[comment]: <> (@inproceedings{xovee2020quantifying, )
-
-[comment]: <> (  author = {Xovee Xu and Fan Zhou and Ce Li and Goce Trajcevski and Ting Zhong and Kunpeng Zhang}, )
-
-[comment]: <> (  title = {A Heterogeneous Dynamical Graph Neural Networks Approach to Quantify Scientific Impact}, )
-
-[comment]: <> (  booktitle = {arXiv:2003.12042}, )
-
-[comment]: <> (  year = {2020}, )
-
-[comment]: <> (})
-
-[comment]: <> (```)
-
-[comment]: <> (We also have a [survey paper]&#40;https://dl.acm.org/doi/10.1145/3433000&#41; you might be interested:)
-
-[comment]: <> (```bibtex)
-
-[comment]: <> (@article{zhou2021survey,)
-
-[comment]: <> (  author = {Fan Zhou and Xovee Xu and Goce Trajcevski and Kunpeng Zhang}, )
-
-[comment]: <> (  title = {A Survey of Information Cascade Analysis: Models, Predictions, and Recent Advances}, )
-
-[comment]: <> (  journal = {ACM Computing Surveys &#40;CSUR&#41;}, )
-
-[comment]: <> (  volume = {54},)
-
-[comment]: <> (  number = {2},)
-
-[comment]: <> (  year = {2021},)
-
-[comment]: <> (  pages = {1--36},)
-
-[comment]: <> (  doi = {10.1145/3433000},)
-
-[comment]: <> (})
-
-[comment]: <> (```)
+If you have any questions, feel free to contact us, emails: `xovee@ieee.org` or `ce.lc@outlook.com`. 
