@@ -38,7 +38,7 @@ For a given scientific dataset, you should:
 3. Generate scientific information cascades
 4. Training & Evaluating
 
-Detailed pre-process files information can be found [here](https://github.com/celi52/si-hdgnn/pre_data).
+Detailed pre-process files information can be found [here](https://github.com/celi52/si-hdgnn/tree/master/pre_data).
 
 ### 1. Construct heterogeneous graph
 
