@@ -7,7 +7,7 @@ This repo provides a reference implementation of **SI-HDGNN**.
 > Knowledge-Based Systems, 2021, Accepted
 
 ## Requirements
-The code was tested with `Python 3.7`, `tensorflow-gpu 2.4.0`, `torch 1.8.0`, `cudnn 8.0.4` and `cuda 11.0`. Install the dependencies via Anaconda: 
+The code was tested with `Python 3.7`, `tensorflow-gpu 2.4.0`, `pytorch 1.8.1`, `cudnn 8.0.4` and `cuda 11.0`. Install the dependencies via Anaconda: 
 
 ```shell
 # create conda virtual environment
