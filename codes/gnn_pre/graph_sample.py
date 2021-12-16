@@ -1,8 +1,14 @@
+import sys
+import os
+BASE_PATH = os.path.abspath(os.path.join(os.getcwd()))
+sys.path.append(BASE_PATH)
 import pickle
-
 import networkx as nx
-
 import config
+
+dir_path = os.path.join(os.getcwd(), config.pre_data_path, config.rwr_path)
+if not os.path.isdir(dir_path):
+    os.mkdir(dir_path)
 
 
 # a_relation = ['a_write_p', 'a_cite_p', 'a_cite_a', 'a_cooperate_a', 'a_write_v']
@@ -14,10 +20,10 @@ p_relation = [5, 6, 7, 8, 9, 10]
 v_relation = [11]
 
 g = nx.MultiDiGraph()
-venue_num = 17
-paper_num = 616316
-author_num = 430950
 
+paper_num = config.P_n
+author_num = config.A_n
+venue_num = config.V_n
 
 print('Start loading data.')
 
@@ -25,6 +31,7 @@ print('Generate paper&paper citation dictionary!')
 p_p_citation_dict = dict()
 with open(config.p_p_citation_lst, 'r') as fs:
     for line in fs:
+        line = line.strip()
         paper_citing = int(line.split(':')[0])
         try:
             paper_cited = [int(id) for id in line.split(':')[1].split(',')]
@@ -36,11 +43,12 @@ print('Generate paper&author list dictionary!')
 p_a_list_dict = dict()
 with open(config.p_a_lst, 'r') as fs:
     for line in fs:
+        line = line.strip()
         paper_id = int(line.split(':')[0])
         try:
             authors = [int(id) for id in line.split(':')[1].split(',')]
         except ValueError:
-            continue
+            authors = []
         p_a_list_dict[paper_id] = authors
 
 len_p_p_citation_dict = len(p_p_citation_dict)
@@ -49,43 +57,45 @@ print('Length of p_p_citation_dict:', len_p_p_citation_dict)
 print('Starting add nodes and edges to graph G!')
 
 xovee = 0
+num_a_p = 0
 
 for paper_id, authors in p_a_list_dict.items():
     if xovee % int(paper_num / 1000) == 0:
         print('Progress {:.2f}%: {}/{}'.format((xovee/paper_num)*100, xovee, paper_num))
+
     paper_node = ('p' + str(paper_id))
 
+    for paper in p_p_citation_dict[paper_id]:
+        g.add_edge(paper_node, 'p'+str(paper), key=p_relation[1], w=1)
+        g.add_edge('p' + str(paper), paper_node, key=p_relation[2], weight=1)
 
-    try:
-        for paper in p_p_citation_dict[paper_id]:
-            g.add_edge(paper_node, 'p'+str(paper), key=p_relation[1], w=1)
+        for author in authors:
+            # a_relation[1] a_cite_p
+            if g.has_edge('a' + str(author), 'p' + str(paper), key=a_relation[1]):
+                g['a' + str(author)]['p' + str(paper)][a_relation[1]]['w'] += 1
+            else:
+                g.add_edge('a' + str(author), 'p' + str(paper), key=a_relation[1], w=1)
+                num_a_p += 1
 
-            for author in authors:
-                for another_author in p_a_list_dict[paper]:
-                    # add author to author
-                    # if g.has_edge('a'+str(author), 'a'+str(another_author), key=a_relation[2]):
-                    #     g['a'+str(author)]['a'+str(another_author)][a_relation[2]]['w'] += 1
-                    # else:
-                    #     g.add_edge('a'+str(author), 'a'+str(another_author), key=a_relation[2], w=1)
-                    # add author to paper
-                    if g.has_edge('a'+str(author), 'p'+str(paper), key=a_relation[1]):
-                        g['a'+str(author)]['p'+str(paper)][a_relation[1]]['w'] += 1
-                    else:
-                        g.add_edge('a'+str(author), 'p'+str(paper), key=a_relation[1], w=1)
-                    # add paper to author
-                    if g.has_edge(paper_node, 'a'+str(author), key=p_relation[3]):
-                        g[paper_node]['a'+str(author)][p_relation[3]]['w'] += 1
-                    else:
-                        g.add_edge(paper_node, 'a'+str(author), key=p_relation[3], w=1)
-                    # add cited paper to author
-                    if g.has_edge('p'+str(paper), 'a'+str(author), key=p_relation[4]):
-                        g['p'+str(paper)]['a'+str(author)][p_relation[4]]['w'] += 1
-                    else:
-                        g.add_edge('p'+str(paper), 'a'+str(author), key=p_relation[4], w=1)
+            # add cited paper to author
+            if g.has_edge('p' + str(paper), 'a' + str(author), key=p_relation[4]):
+                g['p' + str(paper)]['a' + str(author)][p_relation[4]]['w'] += 1
+            else:
+                g.add_edge('p' + str(paper), 'a' + str(author), key=p_relation[4], w=1)
 
-            g.add_edge('p' + str(paper), paper_node, key=p_relation[2], weight=1)
-    except KeyError:
-        continue
+
+        for another_author in p_a_list_dict[paper]:
+            # add author to author
+            # if g.has_edge('a'+str(author), 'a'+str(another_author), key=a_relation[2]):
+            #     g['a'+str(author)]['a'+str(another_author)][a_relation[2]]['w'] += 1
+            # else:
+            #     g.add_edge('a'+str(author), 'a'+str(another_author), key=a_relation[2], w=1)
+
+            # add paper to author
+            if g.has_edge(paper_node, 'a'+str(another_author), key=p_relation[3]):
+                g[paper_node]['a'+str(another_author)][p_relation[3]]['w'] += 1
+            else:
+                g.add_edge(paper_node, 'a'+str(another_author), key=p_relation[3], w=1)
 
     g.add_edges_from([('a'+str(author), paper_node, a_relation[0], dict(w=1)) for author in authors])
     g.add_edges_from([(paper_node, 'a'+str(author), p_relation[0], dict(w=1)) for author in authors])
@@ -98,12 +108,15 @@ for paper_id, authors in p_a_list_dict.items():
                 else:
                     g.add_edge('a'+str(authors[i]), 'a'+str(authors[j]), key=a_relation[3], w=1)
 
-    xovee += 1
+    xovee+=1
 
+print(num_a_p)
 
+xovee = 0
 with open(config.p_v_lst, 'r') as fs:
-
     for line in fs:
+        if xovee % int(paper_num / 1000) == 0:
+            print('Progress {:.2f}%: {}/{}'.format((xovee / paper_num) * 100, xovee, paper_num))
         line = line.strip()
         paper_id, venue_id = [str(i) for i in line.split(',')]
         paper_node = ('p' + paper_id)
@@ -120,6 +133,7 @@ with open(config.p_v_lst, 'r') as fs:
                 else:
                     g.add_edge('a' + str(author_id), venue_node, key=a_relation[4], w=1)
 
+        xovee+=1
 
 print('Adding paper&venue nodes and edges to graph G!')
 print('Number of nodes', g.number_of_nodes())

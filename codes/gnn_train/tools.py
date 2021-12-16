@@ -1,14 +1,16 @@
+import sys
+import os
+BASE_PATH = os.path.abspath(os.path.join(os.getcwd()))
+sys.path.append(BASE_PATH)
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from torch.autograd import Variable
 from args import read_args
 import numpy as np
-import string
-import re
-import math
 args = read_args()
 from Multi_head_layer import GraphAttentionLayer
+import config
+
 
 class HetAgg(nn.Module):
 	def __init__(self, args, feature_list, a_neigh_list_train, p_neigh_list_train, v_neigh_list_train,\
@@ -217,7 +219,7 @@ class HetAgg(nn.Module):
 			p_agg = self.node_het_agg(pos_id_batch, 3)
 			n_agg = self.node_het_agg(neg_id_batch, 3)
 		elif triple_index == 9:
-			embed_file = open(self.args.embedding_save + "node_embedding.txt", "w")
+			embed_file = open(config.gnn_node_emb, "w")
 			save_batch_s = self.args.mini_batch_s
 			for i in range(3):
 				if i == 0:

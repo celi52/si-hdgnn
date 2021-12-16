@@ -1,15 +1,21 @@
+import sys
+import os
+import time
+
+BASE_PATH = os.path.abspath(os.path.join(os.getcwd()))
+sys.path.append(BASE_PATH)
+import pickle
 import torch
 import torch.optim as optim
 import data_generator
 import tools
 from args import read_args
-from torch.autograd import Variable
 import numpy as np
 import random
 torch.set_num_threads(2)
 import os
 
-# os.environ['CUDA_VISIBLE_DEVICES']='0'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 
 class model_class(object):
@@ -18,14 +24,14 @@ class model_class(object):
 		self.args = args
 		self.gpu = args.cuda
 
-		input_data = data_generator.input_data(args = self.args)
+		input_data = data_generator.input_data(args=self.args)
 		self.input_data = input_data
 
 		if self.args.train_test_label == 2:
 			input_data.het_walk_restart()
-			print ("neighbor set generation finish")
+			print("neighbor set generation finish")
 
-		feature_list = [ input_data.p_title_embed,\
+		feature_list = [input_data.p_title_embed,\
 		input_data.p_v_net_embed, input_data.p_a_net_embed, input_data.p_ref_net_embed,\
 		input_data.p_net_embed, input_data.a_net_embed, input_data.a_text_embed,\
 		input_data.v_net_embed, input_data.v_text_embed]
@@ -45,24 +51,24 @@ class model_class(object):
 		p_train_id_list = input_data.p_train_id_list
 		v_train_id_list = input_data.v_train_id_list
 
-		self.model = tools.HetAgg(args, feature_list, a_neigh_list_train, p_neigh_list_train, v_neigh_list_train,\
-		 a_train_id_list, p_train_id_list, v_train_id_list)
+		self.model = tools.HetAgg(args, feature_list, a_neigh_list_train, p_neigh_list_train, v_neigh_list_train, \
+								  a_train_id_list, p_train_id_list, v_train_id_list)
 
 		if self.gpu:
 			self.model.cuda()
 		self.parameters = filter(lambda p: p.requires_grad, self.model.parameters())
-		self.optim = optim.Adam(self.parameters, lr=self.args.lr, weight_decay = 0)
+		self.optim = optim.Adam(self.parameters, lr=self.args.lr, weight_decay = args.weight_decay)
 		self.model.init_weights()
 
-
 	def model_train(self):
-		print ('model training ...')
+		print('Model Training')
 		self.model.train()
 		mini_batch_s = self.args.mini_batch_s
 		embed_d = self.args.embed_d
 
 		for iter_i in range(self.args.train_iter_n):
-			print ('iteration ' + str(iter_i) + ' ...')
+			# print('iteration ' + str(iter_i) + ' ...')
+			start_time = time.time()
 			triple_list = self.input_data.sample_het_walk_triple()
 
 			min_len = 1e10
@@ -70,8 +76,8 @@ class model_class(object):
 				if len(triple_list[ii]) < min_len:
 					min_len = len(triple_list[ii])
 			batch_n = int(min_len / mini_batch_s)
-			print(batch_n)
 
+			loss_list = []
 			for k in range(batch_n):
 				c_out = torch.zeros([len(triple_list), mini_batch_s, embed_d])
 				p_out = torch.zeros([len(triple_list), mini_batch_s, embed_d])
@@ -91,24 +97,31 @@ class model_class(object):
 
 				self.optim.zero_grad()
 				loss.backward()
-				self.optim.step() 
+				self.optim.step()
 
-				if k % 100 == 0:
-					print ("loss: " + str(loss))
+				# if (k+1) % 600 == 0:
+				# 	print("loss: " + str(loss))
+				loss_list.append(loss)
 
-			if iter_i % self.args.save_model_freq == 0:
-				torch.save(self.model.state_dict(), self.args.model_path + "HetGNN_" + str(iter_i) + ".pt")
+			train_loss = sum(loss_list) / len(loss_list)
+
+			if iter_i % args.save_model_freq == 0:
+				model_save_path = 'model_save/'
+				if not os.path.isdir(model_save_path):
+					os.mkdir(model_save_path)
+				torch.save(self.model.state_dict(), model_save_path + "SIHDGNN_" + str(iter_i) + ".pt")
 				triple_index = 9
-				a_out, p_out, v_out = self.model([], triple_index)
-			print ('iteration ' + str(iter_i) + ' finish.')
+				_1,_2,_3 = self.model([], triple_index)
 
+			print('Iteration: {} \t Train_Loss: {:.3f} \t Time: {:.3f}s' \
+				  .format(iter_i, train_loss, time.time() - start_time))
 
 
 if __name__ == '__main__':
 	args = read_args()
-	print("------arguments-------")
-	for k, v in vars(args).items():
-		print(k + ': ' + str(v))
+	# print("------arguments-------")
+	# for k, v in vars(args).items():
+	# 	print(k + ': ' + str(v))
 
 	random.seed(args.random_seed)
 	np.random.seed(args.random_seed)

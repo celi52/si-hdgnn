@@ -7,14 +7,14 @@ This repo provides a reference implementation of **SI-HDGNN**.
 > Knowledge-Based Systems, 2021, Accepted
 
 ## Requirements
-The code was tested with `Python 3.7`, `tensorflow-gpu 2.4.0`, `torch 1.0.1` and `cuda 11.0`. Install the dependencies via Anaconda: 
+The code was tested with `Python 3.7`, `tensorflow-gpu 2.4.0`, `torch 1.8.0`, `cudnn 8.0.4` and `cuda 11.0`. Install the dependencies via Anaconda: 
 
 ```shell
 # create conda virtual environment
-conda create --name SIHDGNN python=3.7 cudatoolkit=11.0.221 cudnn=8.0.4 pytorch=1.0.1 torchvision=0.2.2 -c pytorch
+conda create --name si-hdgnn python=3.7 cudatoolkit=11.0.221 cudnn=8.0.4 pytorch=1.8.1 -c pytorch
 
 # activate environment
-conda activate SIHDGNN
+conda activate si-hdgnn
 
 # install other dependencies
 pip install -r requirements.txt
@@ -36,86 +36,56 @@ For a given scientific dataset, you should:
 1. Construct a heterogeneous graph
 2. Get node embeddings
 3. Generate scientific information cascades
-4. Training & evaluating
+4. Training & Evaluating
 
-## Construct heterogeneous graph
+Detailed pre-process files information can be found [here](https://github.com/celi52/si-hdgnn/pre_data).
+
+### 1. Construct heterogeneous graph
 
 This stage may costs a large amount of RAM (~64GB with millions of nodes/edges in graph).
 
-### Run scripts:
 
 ```shell
 # build a heterogeneous graph
-python graph_sample.py
+python codes/gnn_pre/graph_sample.py
 
-# heterogeneous neighboring node sampling
-python rwr.py
+# heterogeneous neighboring node sampling save and run
+> python codes/gnn_pre/save_rwr.py
+> python codes/gnn_pre/run_rwr.py
 ```
 
-## Generate node embeddings
+### 2. Generate node embeddings
 
 After graph construction, we now learn node embeddings via a heterogeneous graph neural network. 
 
-### Input fiels:
-
-1. `a_p_list_train.txt`: `author:paper1,paper2,...`, author and papers written by this author
-2. `p_a_list_train.txt`: `original_paper:author1,author2,author3,...`, paper and its authors
-3. `p_p_citation_list.txt`: `original_paper:paper1,paper2,...`, paper and its citation papers
-4. `v_p_list_train.txt`: `venue:paper1,paper2,...`, venue and papers published on this venue
-5. `node_net_embedding`: each line is an embedding of a node, trained by DeepWalk
-6. `het_neigh_train.txt` and `het_random_walk.txt`: sample neighbors through random walk
-
 ```shell script
-> cd ./codes/gnn
-> python gene_node_embeddings.py
+python codes/gnn_train/gene_node_embeddings.py
 ```
 
-## Generate scientific information cascades
+### 3. Generate scientific information cascades
 
 Once we got the node embeddings, we can generate cascades and corresponding training/validation/test data.
 
-### Input files for paper prediction:
-
-Here we only include the files related to the paper prediction, followed by the author prediction
-1. `node_embedding.txt`: each line is an embedding of a node
-2. `p2_cited_citing_lst.txt`: `original_paper:citing_paper1,citing_paper2,...`  (including 2 years of citing papers)
-3. `p20_cited_citing_lst.txt`: `original_paper:num_citations`  (including 20 years of citations)
-4. `p_a_lst_train.txt`: `original_paper:author1,author2,author3,...`, paper and its authors
-5. `p_v.txt`: `original_paper,venue`
-
-### Input files for author prediction:
-
-1. `node_embedding.txt`: each line is an embedding of a node
-2. `a2_cited_citing_lst.txt`: `original_author:citing_paper1,citing_paper2,...`  (including 2 years of citing papers)
-3. `a20_cited_citing_lst.txt`: `original_author:num_citations`  (including 20 years of citations)
-4. `p_a_lst_train.txt`: `original_paper:author1,author2,author3,...`, paper and its authors
-5. `paper_addition.pkl`: `original_author:[(publication,[citation1,citation2...])]`, paper and its publication and citation
-
-### Paper Prediction Run scripts:
+#### Paper Prediction Run scripts:
 
 ```shell script
-> cd ./codes/paper_prediction
-> python 1_load_emb.py
-> python 2_construct_cascade.py
-> python 3_x_ids.py
-> python 4_x_idx.py
-> python 5_y.py
+> python codes/predict_paper/1_load_emb.py
+> python codes/predict_paper/2_construct_cascade.py
 ```
 
-### Author Prediction Run scripts:
+#### Author Prediction Run scripts:
 
 ```shell script
-> cd ./codes/paper_prediction
-> python 1_load_emb.py
-> python 2_x_y.py
+> python codes/predict_author/1_load_emb.py
+> python codes/predict_author/2_x_y.py
 ```
 
 
-## Training & evaluating SI-HDGNN
+### 4. Training & Evaluating SI-HDGNN
 
 ```shell script
-> python paper_prediction.py
-> python author_prediction.py
+> python codes/predict_paper/paper_prediction.py
+> python codes/predict_author/author_prediction.py
 ```
 
 
