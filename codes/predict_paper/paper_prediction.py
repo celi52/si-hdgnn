@@ -116,4 +116,8 @@ train_history = xovee.fit(x=(train, train_authors), y=train_y,
                           )
 
 result_metric = xovee.evaluate(x=(test, test_authors), y=test_y,  verbose=1)
+
+# you can save your prediction here
 pred = xovee.predict(x=(test, test_authors))
+
+print('Finished!')

@@ -7,11 +7,12 @@ This repo provides a reference implementation of **SI-HDGNN**.
 > Knowledge-Based Systems, 2021, Accepted
 
 ## Requirements
-The code was tested with `Python 3.7`, `tensorflow-gpu 2.4.0`, `pytorch 1.8.1`, `cudnn 8.0.4` and `cuda 11.0`. Install the dependencies via Anaconda: 
+The code was tested with `Python 3.7`, `tensorflow-gpu 2.4`, `torch 1.8.1`, `cudnn 8.0` and `cudatoolkit 11.0`. 
+Install the dependencies via Anaconda: 
 
 ```shell
 # create conda virtual environment
-conda create --name si-hdgnn python=3.7 cudatoolkit=11.0.221 cudnn=8.0.4 pytorch=1.8.1 -c pytorch
+conda create --name si-hdgnn -c conda-forge cudatoolkit=11.0 cudnn=8.0
 
 # activate environment
 conda activate si-hdgnn
@@ -19,6 +20,8 @@ conda activate si-hdgnn
 # install other dependencies
 pip install -r requirements.txt
 ```
+Hint: pay attention to the versions of `cudatoolkit` and `cudnn`, `tensorflow` and `torch` rely on certain versions
+of them for GPU/TPU acceleration. 
 
 ## Datasets
 
@@ -38,7 +41,7 @@ For a given scientific dataset, you should:
 3. Generate scientific information cascades
 4. Training & Evaluating
 
-Detailed pre-process files information can be found [here](https://github.com/celi52/si-hdgnn/tree/master/pre_data).
+Detailed pre-process files information can be found [here](input_data.md).
 
 ### 1. Construct heterogeneous graph
 
@@ -47,7 +50,7 @@ This stage may costs a large amount of RAM (~64GB with millions of nodes/edges i
 
 ```shell
 # build a heterogeneous graph
-python codes/gnn_pre/graph_sample.py
+> python codes/gnn_pre/graph_sample.py
 
 # heterogeneous neighboring node sampling save and run
 > python codes/gnn_pre/save_rwr.py
@@ -59,7 +62,8 @@ python codes/gnn_pre/graph_sample.py
 After graph construction, we now learn node embeddings via a heterogeneous graph neural network. 
 
 ```shell script
-python codes/gnn_train/gene_node_embeddings.py
+> python codes/gnn_train/pre_train_files.py 
+> python codes/gnn_train/gene_node_embeddings.py --train_iter_n 30
 ```
 
 ### 3. Generate scientific information cascades

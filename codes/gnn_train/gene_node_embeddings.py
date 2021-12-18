@@ -105,11 +105,13 @@ class model_class(object):
 
 			train_loss = sum(loss_list) / len(loss_list)
 
-			if iter_i % args.save_model_freq == 0:
+			if iter_i+1 % args.save_model_freq == 0:
 				model_save_path = 'model_save/'
 				if not os.path.isdir(model_save_path):
 					os.mkdir(model_save_path)
-				torch.save(self.model.state_dict(), model_save_path + "SIHDGNN_" + str(iter_i) + ".pt")
+				save_path = model_save_path + "SIHDGNN_" + str(iter_i) + ".pt"
+				torch.save(self.model.state_dict(), save_path)
+				print('Model saved at {}'.format(save_path))
 				triple_index = 9
 				_1,_2,_3 = self.model([], triple_index)
 

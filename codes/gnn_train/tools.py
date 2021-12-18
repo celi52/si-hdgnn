@@ -310,3 +310,12 @@ def cross_entropy_loss(c_embed_batch, pos_embed_batch, neg_embed_batch, embed_d)
 
 	return loss_sum
 
+
+# accuracy definition
+def acc(pred, true):
+	n = 0
+	for i in range(len(pred)):
+		if 0.5 * true[i] <= pred[i] <= 1.5 * true[i]:
+			n += 1
+
+	return n/len(pred)

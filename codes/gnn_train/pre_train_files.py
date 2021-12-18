@@ -13,6 +13,11 @@ import config
 from args import read_args
 args = read_args()
 
+dir_path = os.path.join(os.getcwd(), config.pre_data_path, config.gnn_train_path)
+if not os.path.isdir(dir_path):
+    os.mkdir(dir_path)
+
+
 P_n = config.P_n
 A_n = config.A_n
 V_n = config.V_n
@@ -245,6 +250,7 @@ for i in range(len(p_p_cite_list_train)):
     for cited_id in cited_id_lst:
         cited_id = int(cited_id[1:])
         cited_citing_num_dict[cited_id] = cited_citing_num_dict[cited_id] + 1
+
 
 def get_p_a_for_v(v_id):
     papers = v_p_list_train[v_id]

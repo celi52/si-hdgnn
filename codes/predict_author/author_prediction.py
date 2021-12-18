@@ -112,7 +112,7 @@ train_history = xovee.fit(train_generator,
 
 result_metric = xovee.evaluate(test_generator,  verbose=1)
 
+# you can save your prediction here
 pred = xovee.predict(test_generator)
 
 print('Finished!')
-
