@@ -105,7 +105,7 @@ class model_class(object):
 
 			train_loss = sum(loss_list) / len(loss_list)
 
-			if iter_i+1 % args.save_model_freq == 0:
+			if (iter_i+1) % args.save_model_freq == 0:
 				model_save_path = 'model_save/'
 				if not os.path.isdir(model_save_path):
 					os.mkdir(model_save_path)
