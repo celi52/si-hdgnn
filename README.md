@@ -4,7 +4,7 @@ This repo provides a reference implementation of **SI-HDGNN**.
 
 > Heterogeneous Dynamical Academic Network for Learning Scientific Impact Propagation  
 > [Xovee Xu](https://xovee.cn), Ting Zhong, Ce Li, Goce Trajcevski, and Fan Zhou  
-> Knowledge-Based Systems, 2021, Accepted
+> Knowledge-Based Systems, vol. 238, pp. 107839, Feb 2022
 
 ## Requirements
 The code was tested with `Python 3.7`, `tensorflow-gpu 2.4`, `torch 1.8.1`, `cudnn 8.0` and `cudatoolkit 11.0`. 
@@ -105,8 +105,10 @@ If you find **SI-HDGNN** useful for your research, please consider citing us ðŸ˜
   title = {Heterogeneous Dynamical Academic Network for Learning Scientific Impact Propagation}, 
   author = {Xovee Xu and Ting Zhong and Ce Li and Goce Trajcevski and Fan Zhou}, 
   journal = {Knowledge-Based Systems}, 
-  year = {2021}, 
-  numpages = {20}, 
+  year = {2022}, 
+  numpages = {20},
+  issue = {238}, 
+  pages = {107839},
 }
 ```
 
