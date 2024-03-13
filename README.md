@@ -3,7 +3,7 @@
 This repo provides a reference implementation of **SI-HDGNN**.
 
 > Heterogeneous Dynamical Academic Network for Learning Scientific Impact Propagation  
-> [Xovee Xu](https://xovee.cn), Ting Zhong, Ce Li, Goce Trajcevski, and Fan Zhou  
+> [Xovee Xu](https://www.xoveexu.com), Ting Zhong, Ce Li, Goce Trajcevski, and Fan Zhou  
 > Knowledge-Based Systems, vol. 238, pp. 107839, Feb 2022
 
 ## Requirements
